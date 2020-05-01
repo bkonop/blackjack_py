@@ -10,7 +10,7 @@ class Player:
         self.hand.append(card_draw)
 
     def show_hand(self):
-        print("Your hand:")
+        print("{} hand:".format(self.name))
         for card in self.hand:
             card.show()
 

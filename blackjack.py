@@ -15,7 +15,6 @@ def game_loop():
         p.assign_score(player_hand_loop(p, deck))
         if p.score == 0:
             players.remove(p)
-
     if len(players) > 0:
         players[0].score = dealer_hand_loop(players[0], deck)
     else:
@@ -37,7 +36,7 @@ def create_players(count=1):
 
 
 def create_deck():
-    bj_deck = deck_of_cards.Deck('bj_deck')
+    bj_deck = deck_of_cards.Deck()
     return bj_deck
 
 
@@ -83,23 +82,31 @@ def player_hand_loop(player, deck):
 
     if hand_score > 21:
         print("{} busted at {}!".format(player.name, sum_player_hand(player)))
+        print()
         return 0
     else:
+        print("{} stands at {}.".format(player.name, hand_score))
+        print()
         return hand_score
 
 
 def dealer_hand_loop(dealer, deck):
     dealer_sum = sum_player_hand(dealer)
+    print("The dealer flips his second card over.")
+    print()
+    dealer.show_hand()
+    print()
+
     while dealer_sum < 17:
-        print(dealer_sum)
-        print("The dealer hits.")
         dealer.draw(deck)
+        print("The dealer draws: {}".format(dealer.hand[-1].name))
         dealer_sum = sum_player_hand(dealer)
+        print("The dealer now has {}".format(dealer_sum))
     if dealer_sum > 21:
         print("{} busted at {}!".format(dealer.name, sum_player_hand(dealer)))
         return 0
     else:
-        print("Dealers hand is {}".format(dealer_sum))
+        print("Dealer stands at {}".format(dealer_sum))
         return dealer_sum
 
 
@@ -119,6 +126,7 @@ def compare_scores_against_dealer(players, dealer):
 
 
 def ui_results(report):
+    print()
     print("Winners:")
     for p in report.win:
         print("* {}".format(p.name))

@@ -13,8 +13,6 @@ def game_loop():
 
     for p in players[1:]:
         p.assign_score(player_hand_loop(p, deck))
-        if p.score == 0:
-            players.remove(p)
     if len(players) > 0:
         players[0].score = dealer_hand_loop(players[0], deck)
     else:
@@ -29,7 +27,7 @@ def create_players(count=1):
     dealer = card_player.Player('Dealer')
     players.append(dealer)
     for i in range(0, count):
-        name = input('Enter player name:   ')
+        name = input("Enter player name:   ")
         new_player = card_player.Player(str(name))
         players.append(new_player)
     return players
